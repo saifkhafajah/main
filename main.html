@@ -1,0 +1,654 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Saif Khafajah | Mechatronics Engineer Portfolio</title>
+  <meta name="description" content="Portfolio of Saif Khafajah, a Mechatronics Engineer specializing in robotics, ROS, embedded systems, PCB design, control, and CAD." />
+  <meta name="author" content="Saif Khafajah" />
+  <meta property="og:title" content="Saif Khafajah | Mechatronics Engineer" />
+  <meta property="og:description" content="Robotics • ROS • Embedded Systems • PCB • Control • CAD" />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="assets/og-image.jpg" />
+  <link rel="icon" href="assets/rubik.png" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+
+  <style>
+   :root {
+      --bg: #0b0f14;
+      --surface: #101620;
+      --card: #121a25;
+      --muted: #9fb0c6;
+      --text: #e7edf6;
+      --primary: #4f8cff;
+      --primary-2: #75ffcc;
+      --accent: #ffd166;
+      --danger: #ff6b6b;
+      --ring: 0 0 0 6px rgba(79, 140, 255, .15);
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --radius: 18px;
+    }
+    @media (prefers-color-scheme: light) {
+      :root { --bg:#f7f9fc; --surface:#ffffff; --card:#ffffff; --text:#0b0f14; --muted:#506075; --shadow:0 10px 30px rgba(10, 24, 40, .08);}    }
+
+    * { box-sizing: border-box }
+    html,body { height: 100% }
+    body {
+      margin: 0;
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
+      color: var(--text);
+      background: radial-gradient(1200px 600px at 80% -10%, rgba(79,140,255,.15), transparent 50%),
+                  radial-gradient(800px 500px at -10% 20%, rgba(117,255,204,.12), transparent 60%),
+                  var(--bg);
+      line-height: 1.65;
+      letter-spacing: .2px;
+    }
+
+    /* Utilities */
+    .container { width: min(1100px, 92%); margin: 0 auto }
+    .flex { display:flex }
+    .grid { display:grid }
+    .center { align-items: center; justify-content: center }
+    .between { justify-content: space-between }
+    .gap-1 { gap: .5rem }
+    .gap-2 { gap: 1rem }
+    .gap-3 { gap: 1.5rem }
+    .gap-4 { gap: 2rem }
+    .gap-5 { gap: 3rem }
+    .stack { display:flex; flex-direction:column }
+    .card { background: var(--card); border:1px solid rgba(255,255,255,.06); padding: 1.25rem; border-radius: var(--radius); box-shadow: var(--shadow) }
+    .tag { font-size:.85rem; color:var(--muted); padding:.35rem .65rem; border:1px solid rgba(255,255,255,.12); border-radius:999px }
+    .btn { display:inline-flex; gap:.5rem; align-items:center; border-radius:14px; padding:.8rem 1.1rem; border:1px solid rgba(255,255,255,.12); text-decoration:none; color:var(--text); background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02)); box-shadow: var(--shadow) }
+    .btn:hover { transform: translateY(-1px); box-shadow: 0 12px 34px rgba(0,0,0,.35) }
+    .btn-primary { border-color: transparent; background: linear-gradient(90deg, var(--primary), #7aa6ff); color: white; font-weight: 600 }
+    .btn-ghost { background: transparent }
+    .btn:focus-visible { outline:none; box-shadow: var(--ring) }
+    .mono { font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace }
+
+    header {
+      position: sticky; top: 0; z-index: 40;
+      backdrop-filter: saturate(140%) blur(12px);
+      background: linear-gradient(180deg, rgba(10, 16, 28, .75), transparent);
+      border-bottom: 1px solid rgba(255,255,255,.06);
+    }
+    nav { height: 66px }
+    nav a { color: var(--muted); text-decoration: none; font-weight: 600 }
+    nav a:hover { color: var(--text) }
+
+    /* Hero */
+      /* Video background */
+    #heroVideo {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: -2;
+    }
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.45); /* overlay */
+      z-index: -1;
+    }
+
+    .badge { display:inline-flex; align-items:center; gap:.6rem; border:1px dashed rgba(255,255,255,.18); padding:.5rem .8rem; border-radius:999px; color:var(--muted) }
+    .headline { font-size: clamp(1.8rem, 3.5vw + .5rem, 3.2rem); line-height:1.15; margin: .7rem 0 }
+    .subhead { font-size: clamp(1rem, 1.1vw + .6rem, 1.25rem); color: var(--muted); max-width: 60ch }
+
+    .hero-grid { margin-top: 36px; grid-template-columns: 1.4fr .9fr; gap: 2rem }
+    @media (max-width: 900px) { .hero-grid { grid-template-columns: 1fr } }
+
+    .stats { grid-template-columns: repeat(3, minmax(0, 1fr)); gap:1rem }
+    .stat { text-align:center; padding: 1.1rem; border-radius: 16px; background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02)); border:1px solid rgba(255,255,255,.08) }
+    .stat strong { display:block; font-size:1.6rem }
+
+    .avatar-wrap { position:relative }
+    .avatar {
+      width: 100%; aspect-ratio: 1/1; border-radius: 26px; object-fit: cover; border: 1px solid rgba(255,255,255,.1);
+      background: linear-gradient(120deg, rgba(79,140,255,.1), rgba(117,255,204,.08));
+    }
+    /* Sections */
+    section { padding: 64px 0 }
+    .section-title { font-size: 1.6rem; display:flex; align-items:center; gap:.7rem; margin-bottom: 18px }
+    .kicker { color: var(--primary-2); letter-spacing:.12em; font-weight:800; font-size:.78rem }
+    .section-sub { color: var(--muted); margin-bottom: 24px; max-width: 70ch }
+
+    /* Skills */
+    .skills { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1rem }
+    @media (max-width: 900px) { .skills { grid-template-columns: repeat(2, 1fr) } }
+
+    /* Projects */
+    .projects { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem }
+    @media (max-width: 1100px) { .projects { grid-template-columns: repeat(2, 1fr) } }
+    @media (max-width: 700px) { .projects { grid-template-columns: 1fr } }
+    .project { overflow:hidden; position:relative }
+    .project img { width:100%; height:220px; object-fit:cover; border-radius: 14px }
+    .project .meta { display:flex; align-items:center; gap:.5rem; flex-wrap:wrap }
+
+    /* Experience */
+    .timeline { position:relative; margin-top: 6px }
+    .timeline::before { content:""; position:absolute; left: 14px; top: 4px; bottom: 4px; width: 2px; background: linear-gradient(180deg, rgba(255,255,255,.24), rgba(255,255,255,0)) }
+    .item { position:relative; padding-left: 48px; margin: 18px 0 }
+    .dot { position:absolute; left:6px; top:.2rem; width: 16px; height: 16px; border-radius:50%; background: var(--primary); box-shadow: 0 0 0 4px rgba(79,140,255,.25) }
+
+    /* Contact */
+    form { display:grid; gap: .9rem }
+    input, textarea { width:100%; padding: .9rem 1rem; border-radius: 12px; border:1px solid rgba(255,255,255,.12); background: rgba(255,255,255,.02); color: var(--text); font: inherit }
+    textarea { min-height: 140px; resize: vertical }
+    input:focus, textarea:focus { outline:none; box-shadow: var(--ring); border-color: transparent }
+
+    footer { color: var(--muted); padding: 40px 0 60px }
+
+    /* Animations */
+    [data-animate] { opacity: 0; transform: translateY(8px); transition: opacity .5s ease, transform .5s ease }
+    [data-animate].in { opacity: 1; transform: translateY(0) }
+    .shine {
+      position: relative; overflow: hidden; isolation: isolate;
+    }
+    .shine::after {
+      content:""; position:absolute; inset:0; background: linear-gradient(120deg, rgba(255,255,255,.12), rgba(255,255,255,0) 35%, rgba(255,255,255,.12) 70%, rgba(255,255,255,0));
+      translate: -120% 0; rotate: 6deg; animation: shine 6s infinite ease-in-out;
+    }
+    @keyframes shine { 0% { translate: -120% 0 } 12% { translate: 120% 0 } 100% { translate: 120% 0 } }
+
+    /* Skip link */
+    .skip { position:absolute; left:-10000px; top:auto; width:1px; height:1px; overflow:hidden }
+    .skip:focus { position:static; width:auto; height:auto; padding:.6rem 1rem; background:var(--primary); color:white; border-radius:12px }
+  </style>
+
+  <!-- Schema.org JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Saif Khafajah",
+    "jobTitle": "Mechatronics Engineer",
+    "url": "https://your-domain.com/",
+    "sameAs": [
+      "https://www.linkedin.com/in/saif-khafajah-898071236",
+      "https://github.com/saif-khafajah"
+    ],
+    "knowsAbout": ["Robotics", "ROS", "Embedded Systems", "PCB Design", "Control Systems", "CAD / SolidWorks", "C++", "Python"]
+  }
+  </script>
+</head>
+
+<body>
+    <style>
+    /* Fullscreen loading */
+    #loading {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: #121a25; /* Dark background */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      transition: opacity 0.6s ease; /* smooth fade */
+    }
+
+    /* Logo animation */
+    .logo {
+      width: 500px;
+      animation: pulse 1.8s infinite ease-in-out;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(0.9); opacity: 0.7; }
+      50% { transform: scale(1.1); opacity: 1; }
+      100% { transform: scale(0.9); opacity: 0.7; }
+    }
+
+    /* Hide content initially */
+    #content {
+      display: none;
+      opacity: 0;
+      transition: opacity 1s ease;
+    }
+
+    /* Show content after loading */
+    #content.show {
+      display: block;
+      opacity: 1;
+    }
+  </style>
+</head>
+<body>
+   <!-- Loading Screen -->
+  <div id="loading">
+    <img src="assets/saifkh.png" alt="Saif Khafajah Logo" class="logo">
+  </div>
+  <a class="skip" href="#main">Skip to content</a>
+  <header>
+    <nav class="container flex between center">
+      <a href="#" class="flex center gap-2" aria-label="Home">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3l8 5v8l-8 5-8-5V8l8-5z" stroke="currentColor" stroke-width="1.4"/><path d="M12 3v18" stroke="currentColor" stroke-width="1.4" opacity=".5"/></svg>
+        <strong style="color:var(--text)">Saif Khafajah</strong>
+      </a>
+      <div class="flex center gap-3" role="navigation" aria-label="Primary">
+        <a href="#about">About</a>
+        <a href="#skills">Skills</a>
+        <a href="#projects">Projects</a>
+        <a href="#experience">Experience</a>
+        <a href="#contact">Contact</a>
+        <a class="btn btn-primary" href="assets/SaifKhafajahResume.pdf" download>Download CV</a>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main" class="container">
+    <!-- HERO -->
+     <section class="hero">
+  <video autoplay muted loop playsinline id="heroVideo">
+    <source src="assets/roya.mp4" type="video/mp4" />
+    Your browser does not support the video tag.
+  </video>
+
+  <div class="grid hero-grid center">
+    <!-- your existing hero content here -->
+  </div>
+</section>
+    <section class="hero">
+      <div class="grid hero-grid center">
+        <div class="stack gap-2" data-animate>
+          <span class="badge mono">Mechatronics • Robotics • Embedded</span>
+          <h1 class="headline"> <span style="color:var(--primary)">Engineer. Innovator. Builder</span> —  pushing the boundaries of technology..”</h1>
+          <p class="subhead">I’m a Mechatronics Engineer focused on <strong>robotics</strong>, <strong>ROS</strong>, <strong>embedded systems</strong>, <strong>PCB design</strong>, and <strong>control</strong>. I love turning ideas into reliable hardware + software that ships.</p>
+          <div class="flex gap-2" style="margin-top:8px">
+            <a class="btn btn-primary" href="#projects">See Projects</a>
+            <a class="btn btn-ghost" href="#contact">Let’s Work Together</a>
+          </div>
+          <div class="grid stats" style="margin-top: 24px">
+            <div class="stat">
+              <strong>20+ </strong><span class="mono" style="color:var(--muted)">PCBs designed</span>
+            </div>
+            <div class="stat">
+              <strong>12</strong><span class="mono" style="color:var(--muted)">Robots prototyped</span>
+            </div>
+            <div class="stat">
+              <strong>8+</strong><span class="mono" style="color:var(--muted)">ROS projects</span>
+            </div>
+          </div>
+        </div>
+        <div class="avatar-wrap" data-animate>
+          <!-- Replace src with your photo -->
+          <img class="avatar shine" src="assets/saifkhafajah.jpeg" alt="Portrait of Saif Khafajah" />
+          <div class="avatar-ring">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about">
+      <div class="stack gap-1" data-animate>
+        <div class="kicker">ABOUT</div>
+        <h2 class="section-title">Engineer with a builder’s mindset</h2>
+        <p class="section-sub">I bridge mechanics, electronics, and software to deliver end‑to‑end systems: from CAD and simulations to PCB layout, firmware, and ROS stacks. My interests include <em>mobile robotics</em>, <em>swarm systems</em>, and <em>controls</em>. I enjoy designing for manufacturability and reliability, not just demos.</p>
+        <div class="grid skills">
+          <div class="card">
+            <strong>Core Domains</strong>
+            <div class="flex gap-1" style="margin-top:.7rem; flex-wrap:wrap">
+              <span class="tag">Robotics</span>
+              <span class="tag">ROS / ROS 2</span>
+              <span class="tag">Embedded (ARM, AVR, ESP)</span>
+              <span class="tag">PCB Design</span>
+              <span class="tag">Control Systems</span>
+              <span class="tag">Mechatronics</span>
+            </div>
+          </div>
+          <div class="card">
+            <strong>Tools</strong>
+            <div class="flex gap-1" style="margin-top:.7rem; flex-wrap:wrap">
+              <span class="tag">KiCad</span>
+              <span class="tag">Altium</span>
+              <span class="tag">SolidWorks</span>
+              <span class="tag">Fusion 360</span>
+              <span class="tag">OpenRocket</span>
+              <span class="tag">Gazebo</span>
+              <span class="tag">Isaac Sim</span>
+            </div>
+          </div>
+          <div class="card">
+            <strong>Software</strong>
+            <div class="flex gap-1" style="margin-top:.7rem; flex-wrap:wrap">
+              <span class="tag">C / C++</span>
+              <span class="tag">Python</span>
+              <span class="tag">MATLAB/Simulink</span>
+              <span class="tag">FreeRTOS</span>
+              <span class="tag">Linux</span>
+              <span class="tag">Git</span>
+            </div>
+          </div>
+          <div class="card">
+            <strong>Interests</strong>
+            <div class="flex gap-1" style="margin-top:.7rem; flex-wrap:wrap">
+              <span class="tag">Autonomous Systems</span>
+              <span class="tag">Swarm Robotics</span>
+              <span class="tag">Power Electronics</span>
+              <span class="tag">Machine Vision</span>
+              <span class="tag">Rapid Prototyping</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SKILLS MATRIX -->
+    <section id="skills">
+      <div class="kicker">SKILLS</div>
+      <h2 class="section-title">What I’m good at</h2>
+      <p class="section-sub">From schematic to firmware, and from simulation to field testing.</p>
+      <div class="grid skills" data-animate>
+        <div class="card">
+          <h3>Embedded & Firmware</h3>
+          <ul>
+            <li>STM32, ESP32, AVR (Arduino/ATmega)</li>
+            <li>Drivers, HAL, FreeRTOS, peripherals (I²C, SPI, UART, CAN)</li>
+            <li>Power design for servos, BLDC, steppers; DC/DC and EMI basics</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Robotics & ROS</h3>
+          <ul>
+            <li>ROS/ROS 2 nodes, TF, navigation stack, sensor fusion</li>
+            <li>Gazebo/Isaac Sim; URDF/xacro; control + PID tuning</li>
+            <li>SLAM (2D LiDAR), multi-robot coordination</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Electronics & PCB</h3>
+          <ul>
+            <li>KiCad/Altium: schematics, layout, DRC, impedance control</li>
+            <li>Mixed-signal, buck converters, gate drivers, H-bridges</li>
+            <li>DFM/DFT, test jigs, documentation</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>CAD & Mechanisms</h3>
+          <ul>
+            <li>SolidWorks/Fusion: chassis, mounts, gear trains, belt drives</li>
+            <li>FEA basics, tolerance stacks, BOM and assembly drawings</li>
+            <li>3D printing & CNC for prototyping</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section id="projects">
+      <div class="kicker">PROJECTS</div>
+      <h2 class="section-title">Selected work</h2>
+      <p class="section-sub">A few projects showcasing robotics, electronics, and control.</p>
+
+      <div class="grid projects" data-animate>
+        <!-- Project 1 -->
+        <article class="card project">
+          <img src="assets/swarm.png" alt="Swarm robots on a test field" />
+          <div class="stack" style="gap:.6rem; margin-top:.8rem">
+            <div class="meta">
+              <span class="tag">ROS 2</span>
+              <span class="tag">Multi‑Robot</span>
+              <span class="tag">LiDAR</span>
+            </div>
+            <h3>Swarm Robot Platform</h3>
+            <p>Designed a multi‑unit swarm with shared 2D LiDAR, centralized map server, and on‑robot microcontrollers. Implemented formation control and obstacle avoidance in ROS 2.</p>
+            <div class="flex gap-2">
+              <a class="btn" href="#" aria-label="View case study for Swarm Robot Platform">Case Study</a>
+              <a class="btn" href="https://github.com/aswathselvam/swarm_robots/tree/main" target="_blank" rel="noopener">GitHub</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Project 2 -->
+        <article class="card project">
+          <img src="assets/marsrover.jpg" alt="Compact sumo robot with belt drive" />
+          <div class="stack" style="gap:.6rem; margin-top:.8rem">
+            <div class="meta">
+              <span class="tag">Mechanism</span>
+              <span class="tag">Belt Drive</span>
+              <span class="tag">CAD</span>
+            </div>
+            <h3>Mars jo rover</h3>
+            <p>Compact symmetric belt‑drive with dual pulleys per side and creative tensioners. Q‑series motors, high‑traction wheels, and low‑slip chassis.</p>
+            <div class="flex gap-2">
+              <a class="btn" href="#">Gallery</a>
+              <a class="btn" href="#">Design Notes</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Project 3 -->
+        <article class="card project">
+          <img src="assets/Quadpcb.JPG" alt="Custom PCB motor driver board" />
+          <div class="stack" style="gap:.6rem; margin-top:.8rem">
+            <div class="meta">
+              <span class="tag">PCB</span>
+              <span class="tag">BLDC</span>
+              <span class="tag">KiCad</span>
+            </div>
+            <h3>Quadcopter pcb controller</h3>
+            <p>4‑layer BLDC driver with current sensing, Esp32 control, CAN bus, and protections. Configurable via Python tool over USB‑CDC.</p>
+            <div class="flex gap-2">
+              <a class="btn" href="#">Schematic</a>
+              <a class="btn" href="#">Layout</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Project 4 -->
+        <article class="card project">
+          <img src="assets/projects/rocket-sim.jpg" alt="OpenRocket simulation screenshot" />
+          <div class="stack" style="gap:.6rem; margin-top:.8rem">
+            <div class="meta">
+              <span class="tag">OpenRocket</span>
+              <span class="tag">Simulation</span>
+              <span class="tag">Recovery</span>
+            </div>
+            <h3>Reusable Rocket Sim</h3>
+            <p>Two‑stage OpenRocket model with 3 motors, stage separation logic, and recovery simulations. Documented procedures and .ork configs.</p>
+            <div class="flex gap-2">
+              <a class="btn" href="#">Read More</a>
+              <a class="btn" href="#">Downloads</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Project 5 -->
+        <article class="card project">
+          <img src="assets/projects/isaac-sim.jpg" alt="NVIDIA Isaac Sim robotics environment" />
+          <div class="stack" style="gap:.6rem; margin-top:.8rem">
+            <div class="meta">
+              <span class="tag">Isaac Sim</span>
+              <span class="tag">Perception</span>
+            </div>
+            <h3>Isaac Sim Perception</h3>
+            <p>Built synthetic data pipelines and evaluated navigation policies using domain randomization for robust deployment.</p>
+            <div class="flex gap-2">
+              <a class="btn" href="#">Report</a>
+              <a class="btn" href="#">Video</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Project 6 -->
+        <article class="card project">
+          <img src="assets/projects/dc-dc.jpg" alt="DC-DC buck converter board powering servos and microcontrollers" />
+          <div class="stack" style="gap:.6rem; margin-top:.8rem">
+            <div class="meta">
+              <span class="tag">Power</span>
+              <span class="tag">Buck</span>
+              <span class="tag">Thermals</span>
+            </div>
+            <h3>12V→5V Converter</h3>
+            <p>Efficient buck for servo motors and controllers with ripple/EMI considerations. Documented component choices and thermal results.</p>
+            <div class="flex gap-2">
+              <a class="btn" href="#">Write‑up</a>
+              <a class="btn" href="#">BOM</a>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- EXPERIENCE -->
+    <section id="experience">
+      <div class="kicker">EXPERIENCE</div>
+      <h2 class="section-title">Where I’ve worked</h2>
+      <div class="timeline" data-animate>
+        <div class="item card">
+          <div class="dot" aria-hidden="true"></div>
+          <div class="flex between">
+            <strong>IEEE BAU SB — Chairman</strong>
+            <span style="color:var(--muted)">2024 – Present</span>
+          </div>
+          <p>Led a student branch, organized robotics workshops and PCB bootcamps, mentored teams for competitions.</p>
+        </div>
+        <div class="item card">
+          <div class="dot" aria-hidden="true"></div>
+          <div class="flex between">
+            <strong>Robotics Intern — orange Jordan</strong>
+            <span style="color:var(--muted)">2023 – 2024</span>
+          </div>
+          <p>Mars jo Rover design & fabrication team leader, Hardware Engineer.</p>
+        </div>
+        <div class="item card">
+          <div class="dot" aria-hidden="true"></div>
+          <div class="flex between">
+            <strong>Freelance — Embedded & PCB / CAD</strong>
+            <span style="color:var(--muted)">2022 – Present</span>
+          </div>
+          <p>Delivered custom drivers, sensor interfaces, and multi‑board systems with documentation , provide High-End Mechanical Designs.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SERVICES / CTA -->
+    <section id="services">
+      <div class="kicker">SERVICES</div>
+      <h2 class="section-title">How I can help</h2>
+      <div class="grid skills" data-animate>
+        <div class="card">
+          <h3>Prototype to MVP</h3>
+          <p>Rapid hardware iterations, embedded firmware, and integration to get you to your first field test.</p>
+        </div>
+        <div class="card">
+          <h3>Robotics & ROS</h3>
+          <p>Navigation stack setup, sensor drivers, simulation, and deployment pipelines.</p>
+        </div>
+        <div class="card">
+          <h3>Electronics & Power</h3>
+          <p>Custom PCBs, power distribution for motors/servos, safety and protections.</p>
+        </div>
+        <div class="card">
+          <h3>Consulting & Training</h3>
+          <p>Workshops for student teams or startups: PCB, control, and ROS fundamentals.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact">
+      <div class="kicker">CONTACT</div>
+      <h2 class="section-title">Let’s talk</h2>
+      <p class="section-sub">Have a project in mind or want to collaborate? Drop a message and I’ll get back to you.</p>
+      <div class="grid" style="grid-template-columns: 1.2fr .8fr; gap: 1rem" data-animate>
+        <form class="card" action="https://formspree.io/f/your-id" method="POST">
+          <label>
+            <span class="mono">Your name</span>
+            <input type="text" name="name" placeholder="Your full name" required>
+          </label>
+          <label>
+            <span class="mono">Email</span>
+            <input type="email" name="email" placeholder="you@example.com" required>
+          </label>
+          <label>
+            <span class="mono">Message</span>
+            <textarea name="message" placeholder="Tell me about your project..." required></textarea>
+          </label>
+          <div class="flex between center">
+            <label class="flex center gap-1" style="color:var(--muted)"><input type="checkbox" required> I agree to be contacted</label>
+            <button class="btn btn-primary" type="submit">Send Message</button>
+          </div>
+          <input type="hidden" name="_subject" value="New inquiry from saifkhafajah.com" />
+        </form>
+        <aside class="stack gap-2">
+          <div class="card">
+            <strong>Location</strong>
+            <p>Amman, Jordan</p>
+          </div>
+          <div class="card">
+            <strong>Email</strong>
+            <p><a href="mailto:saifpad25@gmail.com">saifpad25@gmail.com</a></p>
+          </div>
+          <div class="card">
+            <strong>Links</strong>
+            <div class="flex gap-2">
+              <a class="btn" href="https://www.linkedin.com/in/saif-khafajah-898071236" target="_blank" rel="noopener" aria-label="LinkedIn">LinkedIn</a>
+              <a class="btn" href="https://github.com/saif-khafajah" target="_blank" rel="noopener" aria-label="GitHub">GitHub</a>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <div class="container flex between center">
+      <small>© <span id="y"></span> Saif Khafajah. All rights reserved.</small>
+      <a class="btn" href="#" id="themeBtn" aria-label="Toggle theme">Toggle theme</a>
+    </div>
+  </footer>
+
+  <script>
+    // Year
+    document.getElementById('y').textContent = new Date().getFullYear();
+
+    // Simple intersection animations
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in') })
+    }, { threshold: .15 });
+    document.querySelectorAll('[data-animate]').forEach(el => io.observe(el));
+
+    // Theme toggle (light/dark via attribute)
+    const btn = document.getElementById('themeBtn');
+    let dark = true;
+    btn.addEventListener('click', () => {
+      dark = !dark;
+      document.documentElement.style.setProperty('--bg', dark ? '#0b0f14' : '#f7f9fc');
+      document.documentElement.style.setProperty('--surface', dark ? '#101620' : '#ffffff');
+      document.documentElement.style.setProperty('--card', dark ? '#121a25' : '#ffffff');
+      document.documentElement.style.setProperty('--text', dark ? '#e7edf6' : '#0b0f14');
+      document.documentElement.style.setProperty('--muted', dark ? '#9fb0c6' : '#506075');
+      document.body.style.background = dark
+        ? 'radial-gradient(1200px 600px at 80% -10%, rgba(79,140,255,.15), transparent 50%),\
+           radial-gradient(800px 500px at -10% 20%, rgba(117,255,204,.12), transparent 60%),\
+           #0b0f14'
+        : '#f7f9fc';
+    });
+  </script>
+<script>
+  window.addEventListener("load", () => {
+    const loading = document.getElementById("loading");
+    const content = document.getElementById("content");
+
+    // Keep loader for 5 seconds
+    setTimeout(() => {
+      loading.style.opacity = "0"; // fade out
+      setTimeout(() => {
+        loading.style.display = "none"; // remove loader
+        content.classList.add("show"); // reveal portfolio
+      }, 600); // matches CSS fade duration
+    }, 3000); // 5000ms = 5 seconds
+  });
+</script>
+</body>
+</html>
