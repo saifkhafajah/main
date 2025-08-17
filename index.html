@@ -38,7 +38,7 @@
     * { box-sizing: border-box }
     html,body { height: 100% }
     body {
-  margin: 0;
+      margin: 0;
       font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
       color: var(--text);
       background: radial-gradient(1200px 500px at 80% -10%, rgba(79,140,255,.15), transparent 50%),
@@ -49,7 +49,7 @@
     }
 
     /* Utilities */
-    .container { width: min(1100px, 150%); margin: 0 auto }
+    .container { width: min(1100px, 92%); margin: 0 auto }
     .flex { display:flex }
     .grid { display:grid }
     .center { align-items: center; justify-content: center }
@@ -82,13 +82,13 @@
     /* Hero */
       /* Video background */
     #heroVideo {
-      position: absolute;
-      top: 0; left: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      z-index: -2;
-    }
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100vh;   /* full viewport height */
+  object-fit: cover;
+  z-index: -2;
+}
     .hero::before {
       content: "";
       position: absolute;
@@ -156,10 +156,57 @@
       translate: -120% 0; rotate: 6deg; animation: shine 6s infinite ease-in-out;
     }
     @keyframes shine { 0% { translate: -120% 0 } 12% { translate: 120% 0 } 100% { translate: 120% 0 } }
+    /* Responsive media */
+img, video {
+  max-width: 100%;
+  height: auto;
+}
+#heroVideo {
+  object-fit: cover;
+  min-height: 100vh;
+}
+/* Center hero content */
+.hero-grid {
+  align-items: center;
+  justify-items: center; /* centers grid items horizontally */
+  text-align: center;    /* centers text */
+}
 
+.hero-grid .stack {
+  align-items: center;   /* center text + buttons inside stack */
+}
+
+.hero-grid .stats {
+  justify-content: center;
+}
     /* Skip link */
     .skip { position:absolute; left:-10000px; top:auto; width:1px; height:1px; overflow:hidden }
     .skip:focus { position:static; width:auto; height:auto; padding:.6rem 1rem; background:var(--primary); color:white; border-radius:12px }
+
+    /* Mobile phones */
+@media (max-width: 600px) {
+  nav .flex.gap-3 {
+    flex-wrap: wrap;
+    gap: .6rem;
+  }
+  .headline { font-size: 1.6rem; }
+  .subhead { font-size: 0.95rem; }
+  .avatar {
+    max-width: 250px;
+    margin: 0 auto;
+  }
+}
+
+/* Tablets */
+@media (max-width: 900px) {
+  .hero-grid { grid-template-columns: 1fr; text-align: center; }
+  .stats { grid-template-columns: 1fr 1fr; }
+}
+
+/* Large screens (4K+) */
+@media (min-width: 1600px) {
+  .container { width: 75%; }
+}
   </style>
 
   <!-- Schema.org JSON-LD -->
@@ -218,7 +265,27 @@
       display: block;
       opacity: 1;
     }
+    /* Hamburger button */
+.hamburger {
+  display: none;
+  font-size: 2rem;
+  background: none;
+  border: none;
+  color: var(--text);
+  cursor: pointer;
+}
+
+/* Mobile view */
+@media (max-width: 800px) {
+  .nav-links {
+    display: none; /* hide normal links */
+  }
+  .hamburger {
+    display: block;
+  }
+}
   </style>
+  
 </head>
 <body>
    <!-- Loading Screen -->
@@ -227,20 +294,22 @@
   </div>
   <a class="skip" href="#main">Skip to content</a>
   <header>
-    <nav class="container flex between center">
-      <a href="#" class="flex center gap-2" aria-label="Home">
-        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3l8 5v8l-8 5-8-5V8l8-5z" stroke="currentColor" stroke-width="1.4"/><path d="M12 3v18" stroke="currentColor" stroke-width="1.4" opacity=".5"/></svg>
-        <strong style="color:var(--text)">Saif Khafajah</strong>
-      </a>
-      <div class="flex center gap-3" role="navigation" aria-label="Primary">
-        <a href="#about">About</a>
-        <a href="#skills">Skills</a>
-        <a href="#projects">Projects</a>
-        <a href="#experience">Experience</a>
-        <a href="#contact">Contact</a>
-        <a class="btn btn-primary" href="assets/SaifKhafajahResume.pdf" download>Download CV</a>
-      </div>
-    </nav>
+   <nav class="container flex between center">
+  <a href="#" class="flex center gap-2" aria-label="Home">
+    <svg ...></svg>
+    <strong style="color:var(--text)">Saif Khafajah</strong>
+  </a>
+  <div class="flex center gap-3 nav-links" role="navigation" aria-label="Primary">
+    <a href="#about">About</a>
+    <a href="#skills">Skills</a>
+    <a href="#projects">Projects</a>
+    <a href="#experience">Experience</a>
+    <a href="#contact">Contact</a>
+    <a class="btn btn-primary" href="assets/SaifKhafajahResume.pdf" download>Download CV</a>
+  </div>
+  <!-- Hamburger button -->
+  <button class="hamburger" aria-label="Toggle menu">☰</button>
+</nav>
   </header>
 
   <main id="main" class="container">
@@ -652,15 +721,3 @@
 </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
