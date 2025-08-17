@@ -16,6 +16,15 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <!-- Mobile menu -->
+<div class="mobile-menu">
+  <a href="#about">About</a>
+  <a href="#skills">Skills</a>
+  <a href="#projects">Projects</a>
+  <a href="#experience">Experience</a>
+  <a href="#contact">Contact</a>
+  <a class="btn btn-primary" href="assets/SaifKhafajahResume.pdf" download>Download CV</a>
+</div>
 
   <style>
    :root {
@@ -169,7 +178,7 @@ img, video {
 .hero-grid {
   align-items: center;
   justify-items: center; /* centers grid items horizontally */
-  text-align: center;    /* centers text */
+  text-align: left;    /* centers text */
 }
 
 .hero-grid .stack {
@@ -206,6 +215,10 @@ img, video {
 /* Large screens (4K+) */
 @media (min-width: 1600px) {
   .container { width: 75%; }
+}
+html, body {
+  width: 100%;
+  overflow-x: hidden; /* Prevent horizontal scroll/void */
 }
   </style>
 
@@ -283,6 +296,17 @@ img, video {
   .hamburger {
     display: block;
   }
+}
+/* Mobile menu */
+.mobile-menu {
+  display: none;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.mobile-menu.active {
+  display: flex;
 }
   </style>
   
@@ -703,6 +727,13 @@ img, video {
            #0b0f14'
         : '#f7f9fc';
     });
+    // Hamburger menu toggle
+const hamburger = document.querySelector(".hamburger");
+const mobileMenu = document.querySelector(".mobile-menu");
+
+hamburger.addEventListener("click", () => {
+  mobileMenu.classList.toggle("active");
+});
   </script>
 <script>
   window.addEventListener("load", () => {
